@@ -36,9 +36,9 @@ class WeightMvcController {
 	}
 
 	@RequestMapping("weight")
-	String putWeights(@RequestBody String name, Model model) {
-		// test
-		this.weightRepository.save(new Weight(name));
+	String putWeights(@RequestBody Weight requestedWeight, Model model) {
+
+		this.weightRepository.save(requestedWeight);
 		model.addAttribute("weights", this.weightRepository.findAll());
 		return "weights";
 	}
