@@ -1,23 +1,63 @@
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+	xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title> team 3 </title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>体重入力</title>
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
+
+<script type="text/javascript">
+	$(function() {
+		var data = {
+			recordDate : "2015-09-12",
+			weight1 : 80,
+			weight2 : 32
+		};
+		console.log(data);
+		$("#test").click(function() {
+			$.ajax({
+				type : "POST",
+				url : "/weight", // リクエストURL
+				dataType : "json",
+				contentType : 'application/json',
+				data : JSON.stringify(data),
+				success : function(data, status, xhr) {
+					console.log("success");
+					console.log(data);
+				}//,
+			// error : function(XMLHttpRequest, status, errorThrown) {
+			//	console.log("fail:" + XMLHttpRequest);
+			//	console.log("status:" + status);
+			// }
+			});
+		});
+	});
+</script>
+
 <body>
 
-<H1> Weights
-</H1>
+	<H1>Weights</H1>
 
-<div th:each="r : ${weights}">
+	<form action="/weight" enctype="application/json" method="post">
+		日付: <input type="text" name="recordDate" value="2015-09-30" /> <br />
+		体重: <input type="text" name="weight1" value="80" /> . <input
+			type="text" name="weight2" value="30" /> kg <br /> <input
+			type="submit" value="notAjax" />
+	</form>
 
-    <div>
-        <b th:text="${r.id}">ID</b> -
-        <span th:text="${r.name}">Name</span>
+	<input type="button" id="test" value="send" />
+	<br />
 
-    </div>
-</div>
+
+	<div th:each="r : ${weights}">
+
+		<div>
+			<span th:text="${#dates.format(r.recordDate, 'yyyy/MM/dd')}">Date</span>
+			<span
+				th:text="${r.weight1}+'.'+${#numbers.formatInteger(r.weight2, 2)}">Weight1</span>
+		</div>
+	</div>
 
 </body>
 </html>
