@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title> team 3 </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+
+<H1> Weights
+</H1>
+
+<div th:each="r : ${weights}">
+
+    <div>
+        <b th:text="${r.id}">ID</b> -
+        <span th:text="${r.name}">Name</span>
+
+    </div>
+</div>
+
+</body>
+</html>
